@@ -9,7 +9,7 @@ import com.driver.repository.HotelManagementRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 public class HotelManagementService {
@@ -33,8 +33,6 @@ public class HotelManagementService {
     }
 
     public int bookARoom(Booking booking) {
-        String bookingId= UUID.randomUUID().toString();
-        booking.setBookingId(bookingId);
 
        return hotelManagementRepository.bookARoom(booking);
     }

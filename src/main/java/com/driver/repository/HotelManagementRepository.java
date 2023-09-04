@@ -7,10 +7,7 @@ import com.driver.model.Hotel;
 import com.driver.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Repository
 public class HotelManagementRepository {
@@ -79,7 +76,9 @@ public class HotelManagementRepository {
 
     public int bookARoom(Booking booking) {
 
-        bookingDB.put(booking.getBookingId(),booking);
+        String id= UUID.randomUUID().toString();
+        booking.setBookingId(id);
+        bookingDB.put(id,booking);
 
         Hotel hotel=hotelDb.get(booking.getHotelName());
 
