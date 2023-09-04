@@ -132,7 +132,7 @@ public class HotelManagementRepository {
     }
 
     public int getBookings(Integer aadharCard) {
-//        int cnt=0;
+        int cnt=0;
 //
 //        for(String bookingId:bookingDB.keySet())
 //        {
@@ -141,7 +141,11 @@ public class HotelManagementRepository {
 //                cnt+=bookingDB.get(bookingId).getNoOfRooms();
 //            }
 //        }
-        return userBookingDB.get(aadharCard).size();
+        for (String bookingId:userBookingDB.get(aadharCard))
+        {
+            cnt+=bookingDB.get(bookingId).getNoOfRooms();
+        }
+        return cnt;
 
     }
 
