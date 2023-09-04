@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class HotelManagementRepository {
@@ -36,10 +37,16 @@ public class HotelManagementRepository {
 
     public String addHotel(Hotel hotel) {
 
-        if(hotel==null) return "FAILURE";
+        if(Objects.isNull(hotel) || hotel.getHotelName()==null)
+        {
+            return "FAILURE";
+        }
 
         String hotelName=hotel.getHotelName();
-        if(hotelDb.containsKey(hotelName)) return "FAILURE";
+        if(hotelDb.containsKey(hotelName))
+        {
+            return "FAILURE";
+        }
 
 
         hotelDb.put(hotelName,hotel);
@@ -116,7 +123,7 @@ public class HotelManagementRepository {
         {
             if(aadharCard==bookingDB.get(bookingId).getBookingAadharCard())
             {
-                cnt++;
+                cnt+=bookingDB.get(bookingId).getNoOfRooms();
             }
         }
 
