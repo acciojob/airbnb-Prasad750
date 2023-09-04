@@ -5,7 +5,6 @@ import com.driver.model.Booking;
 import com.driver.model.Facility;
 import com.driver.model.Hotel;
 import com.driver.model.User;
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,23 +17,14 @@ public class HotelManagementRepository {
 
     HashMap<String, Hotel> hotelDb;
     HashMap<Integer, User> userDb;
-
-    HashMap<String, List<Facility>> hotelFacilitiesDB;
-
     HashMap<String, Booking> bookingDB;
-
-    HashMap<String,List<String>> hotelBookingDB;
-
-    HashMap<Integer,List<Booking>> userBookingDB;
 
     public HotelManagementRepository()
     {
         hotelDb=new HashMap<>();
         userDb=new HashMap<>();
-        hotelFacilitiesDB=new HashMap<>();
         bookingDB=new HashMap<>();
-        hotelBookingDB=new HashMap<>();
-        userBookingDB=new HashMap<>();
+
 
 
     }
@@ -54,11 +44,6 @@ public class HotelManagementRepository {
 
 
         hotelDb.put(hotelName,hotel);
-
-        List<Facility> facilities=hotel.getFacilities();
-
-        hotelFacilitiesDB.put(hotelName,facilities);
-
         return "SUCCESS";
 
     }
@@ -73,14 +58,14 @@ public class HotelManagementRepository {
         String hotelName="";
         int max=0;
 
-        for(String hotel:hotelFacilitiesDB.keySet())
+        for(String hotel:hotelDb.keySet())
         {
-            if(max<hotelFacilitiesDB.get(hotel).size())
+            if(max<hotelDb.get(hotel).getFacilities().size())
             {
-                max=hotelFacilitiesDB.get(hotel).size();
+                max=hotelDb.get(hotel).getFacilities().size();
                 hotelName=hotel;
             }
-            else if(max==hotelFacilitiesDB.get(hotel).size() && max!=0)
+            else if(max==hotelDb.get(hotel).getFacilities().size() && max!=0)
             {
                 if (hotelName.compareTo(hotel)>0)
                 {
@@ -106,19 +91,6 @@ public class HotelManagementRepository {
         int totalAmount= hotel.getPricePerNight() * booking.getNoOfRooms();
         booking.setAmountToBePaid(totalAmount);
 
-        List<String> bookingList=new ArrayList<>();
-
-        if(hotelBookingDB.containsKey(booking.getHotelName()))
-        {
-            bookingList=hotelBookingDB.get(booking.getHotelName());
-        }
-
-        bookingList.add(booking.getBookingId());
-        hotelBookingDB.put(booking.getHotelName(),bookingList);
-
-        //
-        //
-
         return totalAmount;
 
     }
@@ -138,7 +110,7 @@ public class HotelManagementRepository {
 
     public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
 
-        List<Facility> currFacilitiesList=hotelFacilitiesDB.get(hotelName);
+        List<Facility> currFacilitiesList=hotelDb.get(hotelName).getFacilities();
 
         for (Facility f : newFacilities)
         {
@@ -149,7 +121,6 @@ public class HotelManagementRepository {
         }
 
         hotelDb.get(hotelName).setFacilities(currFacilitiesList);
-        hotelFacilitiesDB.put(hotelName,currFacilitiesList);
 
         return hotelDb.get(hotelName);
     }
