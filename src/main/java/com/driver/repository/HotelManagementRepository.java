@@ -24,6 +24,8 @@ public class HotelManagementRepository {
 
     HashMap<String,List<String>> hotelBookingDB;
 
+    HashMap<Integer,List<String>> userBookingDB;
+
     public HotelManagementRepository()
     {
         hotelDb=new HashMap<>();
@@ -31,6 +33,7 @@ public class HotelManagementRepository {
         hotelFacilitiesDB=new HashMap<>();
         bookingDB=new HashMap<>();
         hotelBookingDB=new HashMap<>();
+        userBookingDB=new HashMap<>();
 
 
     }
@@ -112,22 +115,34 @@ public class HotelManagementRepository {
         bookingList.add(booking.getBookingId());
         hotelBookingDB.put(booking.getHotelName(),bookingList);
 
+        //
+        List<String> userBookingList=new ArrayList<>();
+
+        if(userBookingDB.containsKey(booking.getBookingAadharCard()))
+        {
+            userBookingList=userBookingDB.get(booking.getBookingAadharCard());
+        }
+        userBookingList.add(booking.getBookingId());
+        userBookingDB.put(booking.getBookingAadharCard(),userBookingList);
+
+        //
+
         return totalAmount;
 
     }
 
     public int getBookings(Integer aadharCard) {
-        int cnt=0;
+//        int cnt=0;
+//
+//        for(String bookingId:bookingDB.keySet())
+//        {
+//            if(aadharCard==bookingDB.get(bookingId).getBookingAadharCard())
+//            {
+//                cnt+=bookingDB.get(bookingId).getNoOfRooms();
+//            }
+//        }
+        return userBookingDB.get(aadharCard).size();
 
-        for(String bookingId:bookingDB.keySet())
-        {
-            if(aadharCard==bookingDB.get(bookingId).getBookingAadharCard())
-            {
-                cnt+=bookingDB.get(bookingId).getNoOfRooms();
-            }
-        }
-
-        return cnt;
     }
 
 
