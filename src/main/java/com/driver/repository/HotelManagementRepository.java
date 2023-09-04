@@ -25,7 +25,7 @@ public class HotelManagementRepository {
 
     HashMap<String,List<String>> hotelBookingDB;
 
-    HashMap<Integer,Integer> userBookingDB;
+    HashMap<Integer,List<Booking>> userBookingDB;
 
     public HotelManagementRepository()
     {
@@ -117,10 +117,6 @@ public class HotelManagementRepository {
         hotelBookingDB.put(booking.getHotelName(),bookingList);
 
         //
-          int aadharCardNo=booking.getBookingAadharCard();
-          Integer currBooking=userBookingDB.get(aadharCardNo);
-          userBookingDB.put(aadharCardNo,Objects.nonNull(currBooking)?1+currBooking:1);
-
         //
 
         return totalAmount;
@@ -128,7 +124,15 @@ public class HotelManagementRepository {
     }
 
     public int getBookings(Integer aadharCard) {
-        return userBookingDB.get(aadharCard);
+        int ans=0;
+        for(String id:bookingDB.keySet())
+        {
+            if(bookingDB.get(id).getBookingAadharCard()==aadharCard)
+            {
+                ans+=bookingDB.get(id).getNoOfRooms();
+            }
+        }
+        return ans;
     }
 
 
