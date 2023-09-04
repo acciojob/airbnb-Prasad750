@@ -117,7 +117,7 @@ public class HotelManagementRepository {
         hotelBookingDB.put(booking.getHotelName(),bookingList);
 
         //
-          Integer aadharCardNo=booking.getBookingAadharCard();
+          int aadharCardNo=booking.getBookingAadharCard();
           Integer currBooking=userBookingDB.get(aadharCardNo);
           userBookingDB.put(aadharCardNo,Objects.nonNull(currBooking)?1+currBooking:1);
 
