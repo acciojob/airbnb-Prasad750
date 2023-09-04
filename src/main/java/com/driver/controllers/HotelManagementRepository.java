@@ -1,4 +1,4 @@
-package com.driver.repository;
+package com.driver.controllers;
 
 
 import com.driver.model.Booking;
@@ -111,7 +111,7 @@ public class HotelManagementRepository {
 
         List<Facility> currFacilitiesList=hotelDb.get(hotelName).getFacilities();
 
-        for (Facility f : newFacilities)
+        for (Facility f: newFacilities)
         {
             if(!currFacilitiesList.contains(f))
             {
