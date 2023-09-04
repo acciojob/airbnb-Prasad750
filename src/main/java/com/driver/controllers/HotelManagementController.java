@@ -71,7 +71,7 @@ public class HotelManagementController {
     {
         //In this function return the bookings done by a person
         int bookings=hotelManagementService.getBookings(aadharCard);
-        return 0;
+        return bookings;
     }
 
     @PutMapping("/update-facilities")
