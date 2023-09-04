@@ -5,6 +5,7 @@ import com.driver.model.Booking;
 import com.driver.model.Facility;
 import com.driver.model.Hotel;
 import com.driver.model.User;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -116,7 +117,10 @@ public class HotelManagementRepository {
         hotelBookingDB.put(booking.getHotelName(),bookingList);
 
         //
-           userBookingDB.put(booking.getBookingAadharCard(),userBookingDB.getOrDefault(booking.getBookingAadharCard(),0)+1);
+          Integer aadharCardNo=booking.getBookingAadharCard();
+          Integer currBooking=userBookingDB.get(aadharCardNo);
+          userBookingDB.put(aadharCardNo,Objects.nonNull(currBooking)?1+currBooking:1);
+
         //
 
         return totalAmount;
